@@ -30,7 +30,17 @@ app.post("/view",(req,res)=>{
 })
 
 app.post("/search",(req,res)=>{
-    res.send("search")
+    let input = req.body
+    ticketmodel.find(input).then(
+        (data)=>{
+            res.json(data)
+        }
+    ).catch(
+        (error)=>{
+            res.json(error)
+        }
+    )
+    
 })
 
 app.post("/delete",(req,res)=>{
