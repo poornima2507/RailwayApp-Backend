@@ -7,6 +7,8 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+mongoose.connect("mongodb+srv://poornima25:poornima25182220@cluster0.dg8g8.mongodb.net/ticketdb?retryWrites=true&w=majority&appName=Cluster0")
+
 app.post("/add",(req,res)=>{
     let input = req.body
     let ticket = new ticketmodel(input)
@@ -14,15 +16,24 @@ app.post("/add",(req,res)=>{
     res.json({"status":"success"})
 })
 
-app.get("/view",(req,res)=>{
-    res.send("view")
+app.post("/view",(req,res)=>{
+    ticketmodel.find().then(
+        (data)=>{
+            res.json(data)
+        }
+    ).catch(
+        (error)=>{
+            res.json(error)
+        }
+    )
+    
 })
 
-app.get("/search",(req,res)=>{
+app.post("/search",(req,res)=>{
     res.send("search")
 })
 
-app.get("/delete",(req,res)=>{
+app.post("/delete",(req,res)=>{
     res.send("delete")
 })
 
